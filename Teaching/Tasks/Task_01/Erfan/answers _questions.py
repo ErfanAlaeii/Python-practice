@@ -1,9 +1,3 @@
-import os 
-
-print(os.path)
-
-
-
 # Question 1
 
 # Ask the user their name and store it in a variable
@@ -13,22 +7,28 @@ name = input("What is your name? ")
 print(f"My name is {name}.")
 
 # Question 2
-
 # Get a number from the user
-number = int(input("Enter a number: "))
+try:
+    number = int(input("Enter a number: "))
 
-# Check if the number is even or odd
-if number % 2 == 0:
-    print("The number is even.")
-else:
-    print("The number is odd.")
+    # Check if the number is even or odd
+    if number % 2 == 0:
+        print("The number is even.")
+    else:
+        print("The number is odd.")
+
+except ValueError:
+    print("Please enter only numbers")
 
 # Question 3
 
-# Get three numbers from the user
-num1 = int(input("Enter the first number: "))
-num2 = int(input("Enter the second number: "))
-num3 = int(input("Enter the third number: "))
+try:
+    num1 = int(input("Enter the first number: "))
+    num2 = int(input("Enter the second number: "))
+    num3 = int(input("Enter the third number: "))
+except ValueError:
+    print(" Please enter only numbers")
+    exit()
 
 # Check if the three numbers can form a triangle
 if (num1 + num2 > num3) and (num1 + num3 > num2) and (num2 + num3 > num1):
@@ -36,27 +36,42 @@ if (num1 + num2 > num3) and (num1 + num3 > num2) and (num2 + num3 > num1):
 else:
     print("No, these numbers cannot form a triangle.")
 
+
 # Question 4
 
-# Get a number from the user
-number = int(input("Enter a number: "))
+def factorial_calculation():
+    while True:
+        try:
+            # Get a number from the user
+            number = int(input("Enter a number: "))
+        except ValueError:
+            print("Please enter only numbers")
+            exit()
+        # Check if the number is greater than 10
+        if number > 10:
+            print("Please enter a number less than 10")
+            continue
+        else:
+            # Calculate the factorial of the number
+            factorial = 1
+            for i in range(1, number + 1):
+                factorial *= i
+        print(f"The factorial of {number} is: {factorial}")
+        return factorial
 
-# Check if the number is greater than 10
-if number > 10:
-    print("The program will stop.")
-else:
-    # Calculate the factorial of the number
-    factorial = 1
-    for i in range(1, number + 1):
-        factorial *= i
-    print(f"The factorial of {number} is: {factorial}")
+
+factorial_calculation()
 
 # Question 5
 
 # Get five numbers from the user
 numbers = []
 for i in range(5):
-    number = float(input(f"Enter number {i + 1}: "))
+    try:
+        number = float(input(f"Enter number {i + 1}: "))
+    except ValueError:
+        print("Please enter only numbers")
+        exit()
     numbers.append(number)
 
 # Sort the numbers in descending order
@@ -73,7 +88,11 @@ odd_numbers = []
 
 # Get 10 numbers from the user
 for i in range(10):
-    number = int(input(f"Enter number {i + 1}: "))
+    try:
+        number = int(input(f"Enter number {i + 1}: "))
+    except ValueError:
+        print("Please enter only numbers")
+        exit()
     if number % 2 == 0:
         even_numbers.append(number)
     else:
@@ -88,7 +107,11 @@ print("Odd numbers:", odd_numbers)
 # Get 10 numbers from the user
 numbers = []
 for i in range(10):
-    number = int(input(f"Enter number {i + 1}: "))
+    try:
+        number = int(input(f"Enter number {i + 1}: "))
+    except ValueError:
+        print("Please enter only numbers")
+        exit()
     numbers.append(number)
 
 # Find the largest and smallest numbers
@@ -114,26 +137,22 @@ def is_prime(num):
         True if the number is prime, False otherwise.
     """
 
-    if num <= 1:
-        return False
-    elif num <= 3:
-        return True
-    elif num % 2 == 0 or num % 3 == 0:
-        return False
-
-    i = 5
-    while i * i <= num:
-        if num % i == 0 or num % (i + 2) == 0:
+    for i in range(2, num):
+        if num % i == 0:
             return False
-        i += 6
-
     return True
 
 
-# Get a number from the user
-number = int(input("Enter a number: "))
+try:
+    number = int(input("Enter a number: "))
+except ValueError:
+    print("Please enter only numbers")
+    exit()
 
 # Print the prime numbers less than the given number
+if number <= 1:
+    print("Please enter a number greater than 1.")
+
 print("Prime numbers less than", number, ":")
 for i in range(2, number):
     if is_prime(i):
@@ -185,7 +204,6 @@ print("Numbers:", numbers)
 
 
 # Question 11
-
 def fibonacci_up_to(n):
     """Generates a list of Fibonacci numbers up to a given number.
 
@@ -209,41 +227,34 @@ def fibonacci_up_to(n):
 
 
 # Get a number from the user
-number = int(input("Enter a number: "))
+try:
+    number = float(input("Enter a number: "))
+except ValueError:
+    print("Please enter only numbers")
+    exit()
 
-# Print the Fibonacci numbers less than the given number
-print("Fibonacci numbers less than", number, ":")
-fibonacci_sequence = fibonacci_up_to(number)
-print(fibonacci_sequence)
-
+if number < 1:
+    print("Please enter a number greater than 1")
+else:
+    # Print the Fibonacci numbers less than the given number
+    print("Fibonacci numbers less than", int(number), ":")
+    fibonacci_sequence = fibonacci_up_to(number)
+    print(fibonacci_sequence)
 
 # Question 12
-
-def count_words(sentence):
-    """Counts the number of words in a sentence.
-
-    Args:
-        sentence: The sentence to count words in.
-
-    Returns:
-        The number of words in the sentence.
-    """
-
-    # Split the sentence into words
-    words = sentence.split()
-
-    # Return the number of words
-    return len(words)
-
 
 # Get a sentence from the user
 sentence = input("Enter a sentence: ")
 
-# Count the number of words
-number_of_words = count_words(sentence)
+if sentence.isalpha():
 
-# Print the number of words
-print("The sentence has", number_of_words, "words.")
+    number_of_words = len(sentence)
+
+    # Print the number of words
+    print("The sentence has", number_of_words, "words.")
+
+else:
+    print("Please enter letters")
 
 
 # Question 13
@@ -258,7 +269,10 @@ def create_user_info_dict():
     user_info = {}
     user_info["name"] = input("What is your name? ")
     user_info["surname"] = input("What is your surname? ")
-    user_info["age"] = int(input("How old are you? "))
+    try:
+        user_info["age"] = int(input("How old are you? "))
+    except ValueError:
+        print("Enter Number")
     user_info["location"] = input("Where are you from? ")
     user_info["favorite_movie"] = input("What is your favorite movie? ")
     user_info["favorite_color"] = input("What is your favorite color? ")
@@ -276,35 +290,38 @@ for key, value in user_info.items():
 
 # Question 14
 
-def prime_numbers_down_to(n):
-    """Generates a list of prime numbers less than or equal to a given number.
+def is_prime(num):
+    """Checks if a number is prime.
 
     Args:
-        n: The maximum number to check for primality.
+        num: The number to check.
 
     Returns:
-        A list of prime numbers less than or equal to n.
+        True if the number is prime, False otherwise.
     """
 
-    prime_numbers = []
-    if n >= 2:
-        prime_numbers.append(2)
-    for num in range(3, n + 1, 2):
-        is_prime = True
-        for i in range(3, int(num ** 0.5) + 1, 2):
-            if num % i == 0:
-                is_prime = False
-                break
-        if is_prime:
-            prime_numbers.append(num)
-    return prime_numbers
+    for i in range(2, num):
+        if num % i == 0:
+            return False
+    return True
 
 
-# Get a four
+number = input("Enter a four-digit number:")
+
+if number.isdigit():
+    if len(number) == 4:
+        prime_numbers = []
+        for i in range(2, int(number)):
+            if is_prime(i):
+                prime_numbers.append(i)
+        print(sorted(prime_numbers, reverse=True))
+    else:
+        print("The number you entered must be four digits")
+else:
+    print("Please enter a number")
 
 
 # Question 15
-
 
 def compare_dates():
     """Compares two dates entered by the user and prints the earlier date.
@@ -324,14 +341,17 @@ def compare_dates():
         year, month, day = map(int, date_text.split("/"))
         return [year, month, day]
 
-    # Get the first date
-    print("Enter the first date:")
-    date1 = get_date_as_numbers()
+    try:
+        # Get the first date
+        print("Enter the first date:")
+        date1 = get_date_as_numbers()
 
-    # Get the second date
-    print("Enter the second date:")
-    date2 = get_date_as_numbers()
-
+        # Get the second date
+        print("Enter the second date:")
+        date2 = get_date_as_numbers()
+    except Exception:
+        print("Please enter the numbers according to the requested format")
+        exit()
     # Compare the dates
     if date1 < date2:
         print("The earlier date is:", "/".join(map(str, date1)))
@@ -368,9 +388,13 @@ def print_colored_characters():
             color = color_codes["green"]
         elif char.isupper():
             color = color_codes["red"]
-        else:
+        elif char.islower():
             color = color_codes["blue"]
-        print(color + char + color_codes["reset"], end="")
+        else:
+            print("Enter letters or numbers")
+            continue
+
+        print(color + char + color_codes["reset"], end='')
 
 
 # Call the function to print colored characters
@@ -378,7 +402,6 @@ print_colored_characters()
 
 
 # Question 17
-
 def calculate_fruit_cost():
     """Calculates the total cost of fruits based on user input and a provided fruit price dictionary.
 
@@ -396,10 +419,18 @@ def calculate_fruit_cost():
     # Get quantities of each fruit
     quantities = {}
     for fruit in fruits_dict.keys():
-        quantity = int(input(f"How many kilograms of {fruit} did you buy? "))
-        quantities[fruit] = quantity
+        try:
+            quantity = float(input(f"How many kilograms of {fruit} did you buy? "))
+        except Exception:
+            print("Enter an integer")
+            exit()
+        if quantity > 0:
+            quantities[fruit] = quantity
+        else:
+            print("We do not have negative weight, some weight is positive")
+            return
 
-    # Calculate the total cost for each fruit
+            # Calculate the total cost for each fruit
     total_costs = {}
     for fruit, quantity in quantities.items():
         total_costs[fruit] = fruits_dict[fruit] * quantity
@@ -418,6 +449,7 @@ def calculate_fruit_cost():
 calculate_fruit_cost()
 
 
+
 # Question 18
 
 def strong_password_checker():
@@ -427,44 +459,60 @@ def strong_password_checker():
         True if the password is strong, False otherwise.
     """
 
-    password = input("Enter a password: ")
-    minimum_length = 8
-    has_uppercase = False
-    has_lowercase = False
-    has_number = False
-    has_special_char = False
-    special_chars = "!@#$%^&*"
+    while True:
+        even_flag = False
+        odd_flag = False
+        lower_flag = False
+        upper_flag = False
+        char_flag = False
+        char = "@ # $ ! %"
+        chars_upper = True
+        chars_numeric = True
 
-    # Check password length
-    if len(password) < minimum_length:
-        print("Password must be at least", minimum_length, "characters long.")
-        return False
+        user = input("Enter Password:")
+        if len(user) > 5:
+            for i in user:
+                if i.isdigit():
+                    numbers = int(i)
+                    if numbers % 2 == 0:
+                        even_flag = True
+                    else:
+                        odd_flag = True
 
-    # Check for character types
-    for char in password:
-        if char.isupper():
-            has_uppercase = True
-        elif char.islower():
-            has_lowercase = True
-        elif char.isdigit():
-            has_number = True
-        elif char in special_chars:
-            has_special_char = True
+                if i.islower():
+                    lower_flag = True
 
-    # Check if all criteria are met
-    if not all([has_uppercase, has_lowercase, has_number, has_special_char]):
-        print("Password must contain at least one uppercase letter, lowercase letter, number, and special character.")
-        return False
+                if i.isupper():
+                    upper_flag = True
 
-    # Password meets all criteria
-    return True
+                if i in char:
+                    char_flag = True
+
+            for i in range(len(user) - 1):
+                try:
+                    if user[i].isupper() and user[i + 1].isupper():
+                        chars_upper = False
+                except IndexError:
+                    pass
+
+            for i in range(len(user) - 2):
+                try:
+                    if user[i].isdigit() and user[i + 1].isdigit() and user[i + 2].isdigit():
+                        chars_numeric = False
+                except IndexError:
+                    pass
+
+        if not all([even_flag, odd_flag, lower_flag, upper_flag, char_flag, char, chars_upper, chars_numeric]):
+            print(
+                "Password must contain at least one uppercase letter, lowercase letter, number, and special character.")
+
+            continue
+        else:
+            return True
 
 
-# Check if the user has a strong password
 if strong_password_checker():
-    print("Your password is strong!")
-else:
-    print("Please create a stronger password.")
+    print("Your password correct")
 
 
 # Question 19
@@ -481,10 +529,15 @@ def count_character_occurrences():
 
     for char in sentence:
         if char not in char_counts:
-            char_counts[char] = 0
-        char_counts[char] += 1
+            char_counts[char] = 1
+        else:
+            char_counts[char] += 1
 
-    # Print the character occurrences (excluding spaces)
+    if not char_counts:
+        print("Please enter a valid value and do not leave it blank")
+        return
+
+        # Print the character occurrences (excluding spaces)
     print("Character occurrences (excluding spaces):")
     for char, count in char_counts.items():
         if char != " ":
@@ -494,68 +547,41 @@ def count_character_occurrences():
 # Call the function to count character occurrences
 count_character_occurrences()
 
+
 # Question 20
-
-def calculate_alarm_time_difference(current_time, alarm_time):
-  """Calculates the time difference until the alarm goes off for the first time.
-
-  Args:
-      current_time: A list containing the current hour (0-23), minute (0-59), and second (0-59).
-      alarm_time: A list containing the alarm hour (0-23), minute (0-59), and second (0-59).
-
-  Returns:
-      A list containing the time difference in hours, minutes, and seconds.
-  """
-
-  # Handle the case where the alarm time is earlier in the day or the same time
-  if (alarm_time[0] < current_time[0]) or \
-     (alarm_time[0] == current_time[0] and (alarm_time[1] <= current_time[1] or alarm_time[2] < current_time[2])):
-    # Add 24 hours to the alarm time
-    alarm_time[0] += 24
-
-  # Calculate the difference in hours, minutes, and seconds
-  time_diff_hours = alarm_time[0] - current_time[0]
-  time_diff_minutes = alarm_time[1] - current_time[1]
-  time_diff_seconds = alarm_time[2] - current_time[2]
-
-  # Handle negative minutes or seconds (borrow from hours or minutes)
-  if time_diff_minutes < 0:
-    time_diff_hours -= 1
-    time_diff_minutes += 60
-  if time_diff_seconds < 0:
-    time_diff_minutes -= 1
-    time_diff_seconds += 60
-
-  return [time_diff_hours, time_diff_minutes, time_diff_seconds]
-
-def format_time_difference(time_diff):
-  """Formats the time difference into a string in HH:MM:SS format.
-
-  Args:
-      time_diff: A list containing the time difference in hours, minutes, and seconds.
-
-  Returns:
-      A string representing the formatted time difference.
-  """
-
-  return f"{time_diff[0]:02d}:{time_diff[1]:02d}:{time_diff[2]:02d}"
-
-# Get current time as a list
-current_time_str = input("Enter the current time (HH:MM:SS): ").split(":")
-current_time = [int(x) for x in current_time_str]
-
-# Get alarm time as a list
-alarm_time_str = input("Enter the alarm time (HH:MM:SS): ").split(":")
-alarm_time = [int(x) for x in alarm_time_str]
-
-# Calculate the time difference
-time_diff = calculate_alarm_time_difference(current_time, alarm_time)
-
-# Format and print the time difference
-formatted_time_diff = format_time_difference(time_diff)
-print(f"Time until alarm: {formatted_time_diff}")
+import datetime
 
 
+# Function to calculate time difference until the next alert
+def calculate_alert(hour, minute, second):
+    # Get the current time
+    current_time = datetime.datetime.now()
+    # Create a datetime object for the desired alert time
+    alert_time = datetime.datetime.replace(current_time, hour=hour, minute=minute, second=second)
+
+    # Calculate the time difference between current time and alert time
+    time_diff = alert_time - current_time
+
+    # If the alert time is in the past (i.e., next day), add a day to the time difference
+    if time_diff < datetime.timedelta(0):
+        time_diff += datetime.timedelta(days=1)
+
+    return time_diff
 
 
-#finish answer
+# Take input for hour, minute, and second from the user
+hour = int(input("Enter hour:"))
+minute = int(input("Enter minute:"))
+second = int(input("Enter second:"))
+
+# Check if the input values are valid (hour, minute, and second should be within valid ranges)
+if 0 < hour < 24 and 0 < minute < 60 and 0 < second < 60:
+    # Calculate the time difference until the next alert
+    difference = calculate_alert(hour, minute, second)
+    # Print the time difference
+    print(difference)
+else:
+    # If the input values are not valid, print an error message
+    print("Enter a valid value")
+
+# finish answer
